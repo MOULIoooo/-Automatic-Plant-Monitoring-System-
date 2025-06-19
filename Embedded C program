@@ -1,0 +1,33 @@
+#include <DHT.h>
+
+#define DHTPIN 2
+#define DHTTYPE DHT11
+#define moisturePin A0
+#define ldrPin A1
+
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+  pinMode(moisturePin, INPUT);
+  pinMode(ldrPin, INPUT);
+}
+
+void loop() {
+  float temp = dht.readTemperature();
+  float humidity = dht.readHumidity();
+  int moisture = analogRead(moisturePin);
+  int light = analogRead(ldrPin);
+
+  Serial.print("Temperature: ");
+  Serial.print(temp);
+  Serial.print(" °C, Humidity: ");
+  Serial.print(humidity);
+  Serial.print(" %, Moisture: ");
+  Serial.print(moisture);
+  Serial.print(", Light: ");
+  Serial.println(light);
+
+  delay(2000);
+}
